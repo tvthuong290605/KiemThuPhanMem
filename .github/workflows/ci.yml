@@ -11,16 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node:20
-    working-directory: ./fontend
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          path: ./fontend
 
       - name: Install frontend dependencies
         run: npm install
+        working-directory: ./fontend
 
       - name: Build frontend
         run: npm run build
+        working-directory: ./fontend
 
       - name: Upload Cypress screenshots
         uses: actions/upload-artifact@v3
@@ -38,13 +41,15 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: maven:3.9.2-eclipse-temurin-20
-    working-directory: ./backend
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          path: ./backend
 
       - name: Build backend
         run: mvn clean package
+        working-directory: ./backend
 
       - name: Upload backend jar
         uses: actions/upload-artifact@v3
