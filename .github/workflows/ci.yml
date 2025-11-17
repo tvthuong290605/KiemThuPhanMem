@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build-frontend:
+  build-fontend:
     runs-on: ubuntu-latest
     container:
       image: node:20
@@ -17,11 +17,11 @@ jobs:
         with:
           path: ./fontend
 
-      - name: Install frontend dependencies
+      - name: Install fontend dependencies
         run: npm install
         working-directory: ./fontend
 
-      - name: Build frontend
+      - name: Build fontend
         run: npm run build
         working-directory: ./fontend
 
