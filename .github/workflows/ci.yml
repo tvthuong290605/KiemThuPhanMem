@@ -13,7 +13,7 @@ jobs:
       image: node:20
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: ./fontend
 
@@ -26,13 +26,13 @@ jobs:
         working-directory: ./fontend
 
       - name: Upload Cypress screenshots
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
           path: ./cypress/screenshots
 
       - name: Upload Cypress videos
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
           path: ./cypress/videos
@@ -43,7 +43,7 @@ jobs:
       image: maven:3.9.2-eclipse-temurin-20
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: ./backend
 
@@ -52,7 +52,7 @@ jobs:
         working-directory: ./backend
 
       - name: Upload backend jar
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: backend-jar
           path: target/*.jar
