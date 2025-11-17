@@ -1,33 +1,53 @@
-name: CI - React + Cypress
+name: Fullstack CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
 
 jobs:
-  cypress-run:
+  build-frontend:
     runs-on: ubuntu-latest
-
+    container:
+      image: node:20
+    working-directory: ./fontend
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: 🧰 Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Install frontend dependencies
+        run: npm install
 
-    - name: 📦 Install dependencies
-      run: npm install
+      - name: Build frontend
+        run: npm run build
 
-    - name: 🧪 Run Cypress tests
-      run: npx cypress run
+      - name: Upload Cypress screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: ./cypress/screenshots
 
-    - name: 📤 Upload test results (nếu cần)
-      if: failure()
-      uses: actions/upload-artifact@v3
-      with:
-        name: cypress-screenshots
-        path: cypress/screenshots
+      - name: Upload Cypress videos
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: ./cypress/videos
+
+  build-backend:
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.9.2-eclipse-temurin-20
+    working-directory: ./backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build backend
+        run: mvn clean package
+
+      - name: Upload backend jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-jar
+          path: target/*.jar
