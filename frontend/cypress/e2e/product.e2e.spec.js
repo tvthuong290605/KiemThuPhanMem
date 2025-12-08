@@ -8,6 +8,7 @@ describe('Product E2E Tests', () => {
 
     // Mock API trả về dữ liệu từ fixture
     // cy.intercept('GET', '/api/products', { fixture: 'products.json' }).as('getProducts');
+    cy.intercept('GET', '/api/products').as('getProducts');
 
     productPage = new ProductPage();
     productPage.visit();
@@ -60,4 +61,5 @@ describe('Product E2E Tests', () => {
     
   });
 });
+
 
