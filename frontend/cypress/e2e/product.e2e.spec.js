@@ -7,7 +7,7 @@ describe('Product E2E Tests', () => {
     cy.login('testuser', 'Test123'); // giả lập đăng nhập
 
     // Mock API trả về dữ liệu từ fixture
-    cy.intercept('GET', '/api/products', { fixture: 'products.json' }).as('getProducts');
+    // cy.intercept('GET', '/api/products', { fixture: 'products.json' }).as('getProducts');
 
     productPage = new ProductPage();
     productPage.visit();
@@ -60,3 +60,4 @@ describe('Product E2E Tests', () => {
     
   });
 });
+
