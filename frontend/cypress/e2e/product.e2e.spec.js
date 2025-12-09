@@ -32,6 +32,7 @@ describe('Product E2E Tests', () => {
 
     productPage.submitForm();
     productPage.getSuccessMessage().should('contain', 'Thêm sản phẩm thành công');
+    productPage.getProductInlist('Laptop Dell').should('exist');
   });
 
   it('Có thể cập nhật sản phẩm', () => {
@@ -45,6 +46,7 @@ describe('Product E2E Tests', () => {
 
     productPage.submitUpdate();
     productPage.getUpdateSuccessMessage().should('contain', 'Cập nhật sản phẩm thành công');
+    productPage.getProductQuantity(0).should('contain','8');
   });
 
   it('Có thể xóa sản phẩm', () => {
@@ -57,6 +59,6 @@ describe('Product E2E Tests', () => {
     });
 
     productPage.clickDeleteProduct(0);
-    
+    productPage.getProductTitle(0).should('not.exist');
   });
 });
